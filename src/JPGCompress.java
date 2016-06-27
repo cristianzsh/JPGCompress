@@ -21,6 +21,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -117,6 +118,8 @@ public class JPGCompress extends JFrame implements ActionListener {
 			return;
 		}
 
+		String quality = JOptionPane.showInputDialog(this, "Quality (ex: 0.5)");
+
 		try {
 			BufferedImage bi = ImageIO.read(img);
 
@@ -132,7 +135,7 @@ public class JPGCompress extends JFrame implements ActionListener {
 			ImageWriteParam par = writer.getDefaultWriteParam();
 
 			par.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-			par.setCompressionQuality(0.05f);
+			par.setCompressionQuality(Float.parseFloat(quality));
 			writer.write(null, new IIOImage(bi, null, null), par);
 
 			os.close();
